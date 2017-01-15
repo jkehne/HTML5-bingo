@@ -11,9 +11,9 @@ function init()
 
 function doConnect()
 {
-    websocket = new WebSocket("wss://int80.de/bingo/server");
+    websocket = new ReconnectingWebSocket("wss://int80.de/bingo/server");
     websocket.onmessage = function(evt) { onMessage(evt) };
-    websocket.onerror = function(evt) { onError(evt) };
+    //websocket.onerror = function(evt) { onError(evt) };
 }
 
 function onMessage(evt)
