@@ -2,7 +2,6 @@ function init()
 {
     doConnect();
     urlparam = new URLSearchParams(window.location.search)
-    var name
     if (urlparam.has('name')) {
 	name = urlparam.get('name')
     } else {
