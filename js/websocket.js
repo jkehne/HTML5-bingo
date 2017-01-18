@@ -18,6 +18,8 @@ function doConnect()
 
 function onMessage(evt)
 {
+    if (evt.data === "PONG")
+	return
     $('#header').html(evt.data + loseText);
     $('#header').addClass("win");
     winSnd.play()
