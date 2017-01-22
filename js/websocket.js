@@ -48,13 +48,13 @@ function handle_signin(params)
 
 function onMessage(evt)
 {
-    console.error(evt.data)
+    if (evt.data === "PONG")
+	return
+
     split_data = evt.data.split(";", 1)
     opcode = split_data[0]
     params = split_data[1]
 
-    if (opcode === "PONG")
-	return
     else if (opcode === "WIN")
 	handle_win(evt.data)
     else if (opcode === "SIGNIN")
