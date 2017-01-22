@@ -1,3 +1,5 @@
+var current_game_id = 0
+
 function init()
 {
     doConnect();
@@ -16,13 +18,47 @@ function doConnect()
     //websocket.onerror = function(evt) { onError(evt) };
 }
 
-function onMessage(evt)
+function handle_win(params)
 {
-    if (evt.data === "PONG")
-	return
-    $('#header').html(evt.data + loseText);
+    split_params = params.split(";", 3)
+    game_id = split_params[1]
+    winner = split_params[2]
+
+    $('#header').html(winner + loseText);
     $('#header').addClass("win");
     winSnd.play()
+}
+
+function handle_signin(params)
+{
+    split_params = params.split(";", 3)
+    game_id = split_params[1]
+    winner = split_params[2]
+
+    if (current_game_id == 0) {
+	current_game_id = game_id
+	return
+    }
+
+    if (game_id == current_game_id)
+	return
+
+    handle_win(params)
+}
+
+function onMessage(evt)
+{
+    console.error(evt.data)
+    split_data = evt.data.split(";", 1)
+    opcode = split_data[0]
+    params = split_data[1]
+
+    if (opcode === "PONG")
+	return
+    else if (opcode === "WIN")
+	handle_win(evt.data)
+    else if (opcode === "SIGNIN")
+	handle_signin(evt.data)
 }
 
 function onError(evt)
@@ -32,5 +68,5 @@ function onError(evt)
 
 function doSend(message)
 {
-    websocket.send(message);
+    websocket.send("WIN;" + current_game_id + ";" + message);
 }
