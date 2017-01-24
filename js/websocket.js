@@ -24,7 +24,7 @@ function handle_win(params)
     game_id = split_params[1]
     winner = split_params[2]
 
-    $('#header').html(winner + loseText);
+    $('#header').html(document.createTextNode(winner + loseText));
     $('#header').addClass("win");
     winSnd.play()
 }
