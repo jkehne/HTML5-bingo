@@ -55,7 +55,7 @@ function onMessage(evt)
     opcode = split_data[0]
     params = split_data[1]
 
-    else if (opcode === "WIN")
+    if (opcode === "WIN")
 	handle_win(evt.data)
     else if (opcode === "SIGNIN")
 	handle_signin(evt.data)
