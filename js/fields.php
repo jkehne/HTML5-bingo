@@ -8,7 +8,7 @@ $notfirst = FALSE
 var JSONBingo = {"squares": [
 <?php
 	foreach ($fields as $field) {
-		printf('%s{"square": "%s"}', $notfirst ? ",\n" : "", $field['text']);
+		printf('%s{"square": "%s"}', $notfirst ? ",\n" : "", htmlentities($field['text']));
 		$notfirst = TRUE;
 	}
 ?>
