@@ -35,10 +35,10 @@ function handle_action() {
 function output_table_row($id, $word, $active) {
     echo "<tr><td>";
     echo $word;
-    echo "</td><td>";
-    printf('<a href="index.php?action=%1$s&id=%2$d">%1$s</a>', $active ? "deactivate" : "activate", $id);
+    echo '</td><td class="menu">';
+    printf('<a href="index.php?action=%1$s&id=%2$d"><img src="img/%1$s.png" /></a>', $active ? "deactivate" : "activate", $id);
     echo "&nbsp;";
-    printf('<a href="index.php?action=delete&id=%d">delete</a>', $id);
+    printf('<a href="index.php?action=delete&id=%d"><img src="img/delete.png" /></a>', $id);
     echo "</td></tr>";
 }
 
@@ -59,6 +59,7 @@ function list_fields() {
 <html>
   <head>
     <title>WGT-Bingo admin area</title>
+    <link rel="stylesheet" type="text/css" href="css/admin.css" />
   </head>
   <body>
     Insert new word:
@@ -67,6 +68,7 @@ function list_fields() {
       <input type="hidden" name="action" value="insert">
       <input type="submit" name="submit" value="Submit">
     </form>
+    <br />
     <table>
     <?php
       init();
