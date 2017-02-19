@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "secret"
+AuthUserFile /etc/apache2/global.passwd
+Require valid-user
