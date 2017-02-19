@@ -1,5 +1,5 @@
 <?php
-require "db.php";
+require "../include/db.php";
 
 $db = NULL;
 
