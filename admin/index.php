@@ -1,9 +1,10 @@
 <?php
-require "../include/db.php";
+require_once "../include/db.php";
+require_once "../include/etag.php";
 
 $db = NULL;
 
-function init() {
+function init_db() {
     global $db;
     $db = new database();
 }
@@ -54,6 +55,9 @@ function list_fields() {
         output_table_row($field['id'], $field['text'], 0);
     }
 }
+
+init_db();
+do_etag($db);
 ?>
 <!DOCTYPE html>
 <html>
@@ -71,7 +75,6 @@ function list_fields() {
     <br />
     <table>
     <?php
-      init();
       handle_action();
       list_fields();
     ?>
