@@ -1,7 +1,11 @@
 <?php
-require "../include/db.php";
+require_once "../include/etag.php";
+require_once "../include/db.php";
 
 $db = new database();
+
+do_etag($db);
+
 $fields = $db->list_fields(1);
 $notfirst = FALSE
 ?>
