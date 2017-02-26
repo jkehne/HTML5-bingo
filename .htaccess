@@ -1,0 +1,7 @@
+<Files "*.js">
+       FileETag none
+</Files>
+
+<Files "*.css">
+       FileETag none
+</Files>
