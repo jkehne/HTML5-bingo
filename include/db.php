@@ -78,7 +78,7 @@ class database {
     public function hash() {
         $retval = array();
 
-        if (!$res = $this->db_handle->query("SELECT SHA2(GROUP_CONCAT(text), 224) as hash FROM fields WHERE active=1")) {
+        if (!$res = $this->db_handle->query("SELECT MD5(GROUP_CONCAT(text)) as hash FROM fields WHERE active=1")) {
             echo "Error querying available fields";
             return NULL;
         }
