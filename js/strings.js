@@ -1,8 +1,4 @@
 
-var headerText = "Goth-Bingo";
-
-var footerText = "Based on <a href='https://github.com/jeffehobbs/HTML5-bingo/' target='_blank'>HTML5-Bingo</a> by Jeff Hobbs";
-
 var winText = "Winner";
 
 var loseText = " wins";
