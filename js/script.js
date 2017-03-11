@@ -14,8 +14,6 @@ $(document).ready(function() {
             //alert(event.target.id);
       	    $(this).data('value', 1); }
       	
-        clickSnd.play();
-
 	if (checkWin()) {
 	    handleWin();
 	};
