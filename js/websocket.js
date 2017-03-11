@@ -1,6 +1,7 @@
-var current_game_id = 0
+var current_game_id = 0;
+var websocket;
 
-function init()
+function initWebsocket()
 {
     doConnect();
 
@@ -15,7 +16,7 @@ function init()
 
 function doConnect()
 {
-    var websocket = new ReconnectingWebSocket("wss://int80.de/bingo/server");
+    websocket = new ReconnectingWebSocket("wss://int80.de/bingo/server");
     websocket.onmessage = function(evt) { onMessage(evt) };
     //websocket.onerror = function(evt) { onError(evt) };
 }
