@@ -30,6 +30,8 @@ function handle_win(params)
     displayWinText(winner + loseText);
 
     winSnd.play()
+
+    current_game_id = game_id;
 }
 
 function handle_signin(params)
