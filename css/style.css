@@ -12,19 +12,19 @@
 
 body {
     background-color: #000;
-    /*background-image: url('../img/wood.background.png');*/
     font-family: "BodoniSvtyTwoOSITCTT-Bold", "Georgia", serif;
     text-rendering: optimizeLegibility;
 }
 
 #container {
     width: 95vw;
-    height: 95vh;
+    height: 98vh;
     display: block;
     margin-left: auto;
     margin-right: auto;
     background-color: none;
-}	
+    overflow: hidden;
+}
 
 #header, #footer {
     display: block;
@@ -32,6 +32,7 @@ body {
     width: 100%;
     color: #EB3E2F;
     opacity: 0.5;
+    text-align: center;
     text-shadow: 0px 1px 0px #A70A0B, 0px -1px 0px #FE6F4F;
     background-color: none;
     font-size: 2.8em;
@@ -46,9 +47,7 @@ body {
 }
 
 #footer {
-    text-align: center;
     font-size: 5vmin;
-    /*padding: 8px 10px 8px 0px;*/
     margin-bottom: 80px;
 }
 
