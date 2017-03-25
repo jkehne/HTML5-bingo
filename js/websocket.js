@@ -66,4 +66,5 @@ function onError(evt)
 function doSend(message)
 {
     websocket.send("WIN;" + current_game_id + ";" + message);
+    current_game_id++;
 }
