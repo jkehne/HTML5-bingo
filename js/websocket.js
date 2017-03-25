@@ -4,14 +4,6 @@ var websocket;
 function initWebsocket()
 {
     doConnect();
-
-    var name;
-    var urlparam = new URLSearchParams(window.location.search)
-    if (urlparam.has('name')) {
-	name = urlparam.get('name')
-    } else {
-	name = prompt("Please enter a name")
-    }
 }
 
 function doConnect()

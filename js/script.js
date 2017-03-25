@@ -1,8 +1,18 @@
 var checked = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 function initialize() {
+    getName();
     generateBoard();
     initWebsocket();
+}
+
+function getName() {
+    var urlparam = new URLSearchParams(window.location.search)
+    if (urlparam.has('name')) {
+        name = urlparam.get('name')
+    } else {
+        window.location.href = "signin.html";
+    }
 }
 
 function handleClick(field, fieldIndex) {
