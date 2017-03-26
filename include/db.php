@@ -21,9 +21,9 @@ class database {
         $this->db_handle->close();
     }
 
-    public function insert_field($text) {
-        if ($sql = $this->db_handle->prepare("INSERT INTO fields (active, text) VALUES (1, ?)")) {
-            if ($sql->bind_param("s", $text)) {
+    public function insert_field($text, $active) {
+        if ($sql = $this->db_handle->prepare("INSERT INTO fields (active, text) VALUES (?, ?)")) {
+            if ($sql->bind_param("is", $active, $text)) {
                 $sql->execute();
             } else {
                 echo "failed to bind parameter to insert statement";

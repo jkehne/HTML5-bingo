@@ -19,7 +19,7 @@ function handle_action() {
 
     switch ($action) {
     case "insert":
-        $db->insert_field($_POST['text']);
+        $db->insert_field($_POST['text'], 1);
         break;
     case "delete":
         $db->delete_field($_GET['id']);

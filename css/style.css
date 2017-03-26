@@ -81,6 +81,25 @@ body {
     font-size: 0.7em;
 }
 
+#submit {
+    color: #EB3E2F;
+    font-size: 1.4em;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+#submit input {
+    color: #EB3E2F;
+    background-color: #000;
+    width: 95%;
+    border: 2px solid #A70A0B;
+    font-size: 0.7em;
+}
+
+#submit p {
+    margin-bottom: 0.8em;
+}
+
 #hints {
     color: #EB3E2F;
     font-size: 1em;
