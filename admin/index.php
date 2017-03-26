@@ -45,14 +45,14 @@ function output_table_row($id, $word, $active) {
 
 function list_fields() {
     global $db;
-    $fields = $db->list_fields(1);
-    foreach ($fields as $field) {
-        output_table_row($field['id'], $field['text'], 1);
-    }
-
     $fields = $db->list_fields(0);
     foreach ($fields as $field) {
         output_table_row($field['id'], $field['text'], 0);
+    }
+
+    $fields = $db->list_fields(1);
+    foreach ($fields as $field) {
+        output_table_row($field['id'], $field['text'], 1);
     }
 }
 
