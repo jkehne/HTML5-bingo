@@ -72,7 +72,7 @@ function displayWinText(text) {
 function handleWin() {
     displayWinText(winText);
 
-    doSend(name);
+    send_win_message(name);
     
     winSnd.play();
 }

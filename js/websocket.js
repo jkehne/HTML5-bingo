@@ -13,7 +13,7 @@ function doConnect()
     //websocket.onerror = function(evt) { onError(evt) };
 }
 
-function handle_win(params)
+function handle_win_message(params)
 {
     var split_params = params.split(";", 3)
     var game_id = split_params[1]
@@ -26,7 +26,7 @@ function handle_win(params)
     current_game_id = game_id;
 }
 
-function handle_signin(params)
+function handle_signin_message(params)
 {
     var split_params = params.split(";", 3)
     var game_id = split_params[1]
@@ -53,9 +53,9 @@ function onMessage(evt)
     var params = split_data[1]
 
     if (opcode === "WIN")
-	handle_win(evt.data)
+	handle_win_message(evt.data)
     else if (opcode === "SIGNIN")
-	handle_signin(evt.data)
+	handle_signin_message(evt.data)
 }
 
 function onError(evt)
@@ -63,7 +63,7 @@ function onError(evt)
     websocket.close();
 }
 
-function doSend(message)
+function send_win_message(message)
 {
     websocket.send("WIN;" + current_game_id + ";" + message);
     current_game_id++;
