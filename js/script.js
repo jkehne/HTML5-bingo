@@ -48,17 +48,20 @@ function addField(board, text, id) {
 
 function generateBoard() {
     var board = document.getElementById("board");
-
-    shuffle(JSONBingo.squares);
+    var index;
 
     for (i=0; i<24; i++) {
 
+	index=parseInt(Math.random() * JSONBingo.squares.length);
+
 	if (i==12) {
 	    addField(board, "free space", -1);
-	    addField(board, JSONBingo.squares[i].square, i);
+	    addField(board, JSONBingo.squares[index].square, i);
 	} else {
-	    addField(board, JSONBingo.squares[i].square, i);
+	    addField(board, JSONBingo.squares[index].square, i);
 	}
+
+	JSONBingo.squares.splice(index, 1);
     }
 }
 
@@ -95,8 +98,3 @@ function checkWin() {
 
     return (row1 == 5 || row2 == 5 || row3 == 5 || row4 == 5 || row5 == 5 || col1 == 5 || col2 == 5 || col3 == 5  || col4 == 5  || col5 == 5 || diag1 == 5 || diag2 == 5);
 }
-
-shuffle = function(v){
-    for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);
-    return v;
-};
