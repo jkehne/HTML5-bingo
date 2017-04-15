@@ -10,7 +10,6 @@ function doConnect()
 {
     websocket = new ReconnectingWebSocket("wss://int80.de/bingo/server");
     websocket.onmessage = function(evt) { onMessage(evt) };
-    //websocket.onerror = function(evt) { onError(evt) };
 }
 
 function handle_win_message(params)
@@ -56,11 +55,6 @@ function onMessage(evt)
 	handle_win_message(evt.data)
     else if (opcode === "SIGNIN")
 	handle_signin_message(evt.data)
-}
-
-function onError(evt)
-{
-    websocket.close();
 }
 
 function send_win_message(message)
