@@ -9,7 +9,8 @@ function initWebsocket()
 function doConnect()
 {
     websocket = new ReconnectingWebSocket("wss://int80.de/bingo/server");
-    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onmessage = onMessage;
+    websocket.onopen = onopen;
 }
 
 function handle_win_message(params)
@@ -42,6 +43,11 @@ function handle_signin_message(params)
     handle_win(params)
 }
 
+function onopen()
+{
+    websocket.send("SIGNIN;" + groupname)
+}
+
 function onMessage(evt)
 {
     if (evt.data === "PONG")
@@ -59,6 +65,6 @@ function onMessage(evt)
 
 function send_win_message(message)
 {
-    websocket.send("WIN;" + current_game_id + ";" + message);
+    websocket.send("WIN;" + groupname + ";" + current_game_id + ";" + message);
     current_game_id++;
 }

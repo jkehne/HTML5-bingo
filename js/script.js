@@ -8,8 +8,9 @@ function initialize() {
 
 function getName() {
     var urlparam = new URLSearchParams(window.location.search)
-    if (urlparam.has('name')) {
-        name = urlparam.get('name')
+    if (urlparam.has('name') && urlparam.has('groupname')) {
+        name = urlparam.get('name');
+	groupname = urlparam.get('groupname');
     } else {
         window.location.href = "signin.html";
     }
