@@ -1,16 +1,31 @@
 var checked = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+var queryParams;
 
 function initialize() {
+    queryParams = parseQueryString(window.location.search.substr(1).split('&'));
     getName();
     generateBoard();
     initWebsocket();
 }
 
+function parseQueryString(a) {
+    if (a == "") return {};
+    var b = {};
+    for (var i = 0; i < a.length; ++i)
+    {
+	var p=a[i].split('=', 2);
+	if (p.length == 1)
+	    b[p[0]] = "";
+	else
+	    b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+    }
+    return b;
+}
+
 function getName() {
-    var urlparam = new URLSearchParams(window.location.search)
-    if (urlparam.has('name') && urlparam.has('groupname')) {
-        name = urlparam.get('name');
-	groupname = urlparam.get('groupname');
+    if (typeof queryParams['name'] !== 'undefined' && typeof queryParams['groupname'] !== 'undefined') {
+        name = queryParams['name'];
+	groupname = queryParams['groupname'];
     } else {
         window.location.href = "signin.html";
     }
