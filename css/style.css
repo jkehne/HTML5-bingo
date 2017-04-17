@@ -106,7 +106,6 @@ body {
 }
 
 .square, .freesquare {
-    display: block;
     float: left;
     overflow: hidden;
     background-color: #fff;
