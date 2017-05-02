@@ -140,6 +140,7 @@ body {
     font-size: 3.5vmin;
     line-height: 1.2em;
     hyphens: auto;
+    overflow-wrap: break-word;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
