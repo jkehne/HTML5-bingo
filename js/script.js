@@ -45,21 +45,31 @@ function handleClick(field, fieldIndex) {
     };
 }
 
+function getOrMakeRow(board) {
+    var row = board.lastChild;
+    if (row == null || row.childElementCount >= 5) {
+	row = document.createElement('tr');
+	board.appendChild(row);
+    }
+    return row;
+}
+
 function addField(board, text, id) {
-    var div = document.createElement('div');
+    var row = getOrMakeRow(board);
+    var col = document.createElement('td');
 
     if (id == -1) {
-	div.id = "sqfree";
-	div.className = "selected freesquare";
+	col.id = "sqfree";
+	col.className = "selected freesquare";
     } else {
-	div.id = "sq" + id;
-	div.className = "square";
-	div.setAttribute('onclick', 'handleClick(this, ' + id + ')');
+	col.id = "sq" + id;
+	col.className = "square";
+	col.setAttribute('onclick', 'handleClick(this, ' + id + ')');
     }
 
-    div.innerHTML = "<div class='text'>" + text + "</div>";
+    col.innerHTML = "<div class='text'>" + text + "</div>";
 
-    board.appendChild(div);
+    row.appendChild(col);
 }
 
 function generateBoard() {
