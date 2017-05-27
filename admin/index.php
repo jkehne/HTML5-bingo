@@ -57,7 +57,7 @@ function list_fields() {
 }
 
 init_db();
-do_etag($db);
+do_etag($db, False);
 ?>
 <!DOCTYPE html>
 <html>

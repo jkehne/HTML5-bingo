@@ -75,10 +75,14 @@ class database {
         return $retval;
     }
 
-    public function hash() {
+    public function hash($activeonly = True) {
         $retval = array();
 
-        if (!$res = $this->db_handle->query("SELECT MD5(GROUP_CONCAT(text)) as hash FROM fields WHERE active=1")) {
+	$sql = "SELECT MD5(GROUP_CONCAT(CONCAT(text, active))) as hash FROM fields";
+	if ($activeonly)
+	   $sql = $sql . " WHERE active=1";
+
+        if (!$res = $this->db_handle->query($sql)) {
             echo "Error querying available fields";
             return NULL;
         }
