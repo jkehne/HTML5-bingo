@@ -32,19 +32,19 @@ function getName() {
 
 function toggleField(field, fieldIndex) {
     if (getFieldChecked(getLocalGroupName(), fieldIndex)) {
-	field.classList.remove("selected");
-    } else {
 	field.classList.add("selected");
+    } else {
+	field.classList.remove("selected");
     }
 }
 
 function handleClick(field, fieldIndex) {
-    toggleField(field, fieldIndex);
-
     if (getFieldChecked(getLocalGroupName(), fieldIndex))
 	setFieldChecked(getLocalGroupName(), fieldIndex, false);
     else
 	setFieldChecked(getLocalGroupName(), fieldIndex, true);
+
+    toggleField(field, fieldIndex);
 
     if (checkWin()) {
 	handleWin();
