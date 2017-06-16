@@ -40,7 +40,7 @@ function handle_signin_message(params)
     if (game_id == current_game_id)
 	return
 
-    handle_win(params)
+    handle_win_message(params)
 }
 
 function onopen()
