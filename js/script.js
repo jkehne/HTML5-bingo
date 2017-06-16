@@ -96,12 +96,10 @@ function generateBoard() {
 	    JSONBingo.squares.splice(index, 1);
 	}
 
-	if (i==12) {
+	if (i==12)
 	    addField(board, "free space", -1);
-	    field = addField(board, fieldText, i);
-	} else {
-	    field = addField(board, fieldText, i);
-	}
+
+	field = addField(board, fieldText, i);
 
 	if (getFieldChecked(getLocalGroupName(), i))
 	    toggleField(field, i);
