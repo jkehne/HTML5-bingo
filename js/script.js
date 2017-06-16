@@ -1,4 +1,3 @@
-var checked = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var queryParams;
 
 function initialize() {
@@ -24,22 +23,29 @@ function parseQueryString(a) {
 
 function getName() {
     if (typeof queryParams['name'] !== 'undefined' && typeof queryParams['groupname'] !== 'undefined') {
-        name = queryParams['name'];
-	groupname = queryParams['groupname'];
+        setLocalUserName(queryParams['name']);
+	setLocalGroupName(queryParams['groupname']);
     } else {
         window.location.href = "signin.html";
     }
 }
 
-function handleClick(field, fieldIndex) {
-    if (checked[fieldIndex] == 1) {
+function toggleField(field, fieldIndex) {
+    if (getFieldChecked(getLocalGroupName(), fieldIndex)) {
 	field.classList.remove("selected");
-	checked[fieldIndex] = 0;
     } else {
 	field.classList.add("selected");
-	checked[fieldIndex] = 1;
     }
-    
+}
+
+function handleClick(field, fieldIndex) {
+    toggleField(field, fieldIndex);
+
+    if (getFieldChecked(getLocalGroupName(), fieldIndex))
+	setFieldChecked(getLocalGroupName(), fieldIndex, false);
+    else
+	setFieldChecked(getLocalGroupName(), fieldIndex, true);
+
     if (checkWin()) {
 	handleWin();
     };
@@ -70,24 +76,35 @@ function addField(board, text, id) {
     col.innerHTML = "<div class='text'>" + text + "</div>";
 
     row.appendChild(col);
+
+    return col;
 }
 
 function generateBoard() {
     var board = document.getElementById("board");
     var index;
+    var fieldText;
+    var field;
 
     for (i=0; i<24; i++) {
 
-	index=parseInt(Math.random() * JSONBingo.squares.length);
+	var fieldText = getFieldText(getLocalGroupName(), i);
+	if (!fieldText) {
+	    index=parseInt(Math.random() * JSONBingo.squares.length);
+	    fieldText = JSONBingo.squares[index].square;
+	    setFieldText(getLocalGroupName(), i, fieldText);
+	    JSONBingo.squares.splice(index, 1);
+	}
 
 	if (i==12) {
 	    addField(board, "free space", -1);
-	    addField(board, JSONBingo.squares[index].square, i);
+	    field = addField(board, fieldText, i);
 	} else {
-	    addField(board, JSONBingo.squares[index].square, i);
+	    field = addField(board, fieldText, i);
 	}
 
-	JSONBingo.squares.splice(index, 1);
+	if (getFieldChecked(getLocalGroupName(), i))
+	    toggleField(field, i);
     }
 }
 
@@ -100,27 +117,26 @@ function displayWinText(text) {
 
 function handleWin() {
     displayWinText(winText);
-
-    send_win_message(name);
-    
+    send_win_message(getLocalUserName());
     winSnd.play();
+    clearGroupState(getLocalGroupName());
 }
 
 function checkWin() {
-    var row1 = (checked[0]+checked[1]+checked[2]+checked[3]+checked[4]);
-    var row2 = (checked[5]+checked[6]+checked[7]+checked[8]+checked[9]);
-    var row3 = (checked[10]+checked[11]+1+checked[12]+checked[13]);
-    var row4 = (checked[14]+checked[15]+checked[16]+checked[17]+checked[18]);
-    var row5 = (checked[19]+checked[20]+checked[21]+checked[22]+checked[23]);
+    var row1 = (getFieldChecked(getLocalGroupName(), 0)+getFieldChecked(getLocalGroupName(), 1)+getFieldChecked(getLocalGroupName(), 2)+getFieldChecked(getLocalGroupName(), 3)+getFieldChecked(getLocalGroupName(), 4));
+    var row2 = (getFieldChecked(getLocalGroupName(), 5)+getFieldChecked(getLocalGroupName(), 6)+getFieldChecked(getLocalGroupName(), 7)+getFieldChecked(getLocalGroupName(), 8)+getFieldChecked(getLocalGroupName(), 9));
+    var row3 = (getFieldChecked(getLocalGroupName(), 10)+getFieldChecked(getLocalGroupName(), 11)+1+getFieldChecked(getLocalGroupName(), 12)+getFieldChecked(getLocalGroupName(), 13));
+    var row4 = (getFieldChecked(getLocalGroupName(), 14)+getFieldChecked(getLocalGroupName(), 15)+getFieldChecked(getLocalGroupName(), 16)+getFieldChecked(getLocalGroupName(), 17)+getFieldChecked(getLocalGroupName(), 18));
+    var row5 = (getFieldChecked(getLocalGroupName(), 19)+getFieldChecked(getLocalGroupName(), 20)+getFieldChecked(getLocalGroupName(), 21)+getFieldChecked(getLocalGroupName(), 22)+getFieldChecked(getLocalGroupName(), 23));
 
-    var col1 = (checked[0]+checked[5]+checked[10]+checked[14]+checked[19]);
-    var col2 = (checked[1]+checked[6]+checked[11]+checked[15]+checked[20]);
-    var col3 = (checked[2]+checked[7]+1+checked[16]+checked[21]);
-    var col4 = (checked[3]+checked[8]+checked[12]+checked[17]+checked[22]);
-    var col5 = (checked[4]+checked[9]+checked[13]+checked[18]+checked[23]);
+    var col1 = (getFieldChecked(getLocalGroupName(), 0)+getFieldChecked(getLocalGroupName(), 5)+getFieldChecked(getLocalGroupName(), 10)+getFieldChecked(getLocalGroupName(), 14)+getFieldChecked(getLocalGroupName(), 19));
+    var col2 = (getFieldChecked(getLocalGroupName(), 1)+getFieldChecked(getLocalGroupName(), 6)+getFieldChecked(getLocalGroupName(), 11)+getFieldChecked(getLocalGroupName(), 15)+getFieldChecked(getLocalGroupName(), 20));
+    var col3 = (getFieldChecked(getLocalGroupName(), 2)+getFieldChecked(getLocalGroupName(), 7)+1+getFieldChecked(getLocalGroupName(), 16)+getFieldChecked(getLocalGroupName(), 21));
+    var col4 = (getFieldChecked(getLocalGroupName(), 3)+getFieldChecked(getLocalGroupName(), 8)+getFieldChecked(getLocalGroupName(), 12)+getFieldChecked(getLocalGroupName(), 17)+getFieldChecked(getLocalGroupName(), 22));
+    var col5 = (getFieldChecked(getLocalGroupName(), 4)+getFieldChecked(getLocalGroupName(), 9)+getFieldChecked(getLocalGroupName(), 13)+getFieldChecked(getLocalGroupName(), 18)+getFieldChecked(getLocalGroupName(), 23));
 
-    var diag1 = (checked[0]+checked[6]+1+checked[17]+checked[23]);
-    var diag2 = (checked[4]+checked[8]+1+checked[15]+checked[19]);
+    var diag1 = (getFieldChecked(getLocalGroupName(), 0)+getFieldChecked(getLocalGroupName(), 6)+1+getFieldChecked(getLocalGroupName(), 17)+getFieldChecked(getLocalGroupName(), 23));
+    var diag2 = (getFieldChecked(getLocalGroupName(), 4)+getFieldChecked(getLocalGroupName(), 8)+1+getFieldChecked(getLocalGroupName(), 15)+getFieldChecked(getLocalGroupName(), 19));
 
     return (row1 == 5 || row2 == 5 || row3 == 5 || row4 == 5 || row5 == 5 || col1 == 5 || col2 == 5 || col3 == 5  || col4 == 5  || col5 == 5 || diag1 == 5 || diag2 == 5);
 }

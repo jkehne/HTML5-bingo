@@ -21,7 +21,9 @@ function handle_win_message(params)
 
     displayWinText(winner + loseText);
 
-    winSnd.play()
+    winSnd.play();
+
+    clearGroupState(getLocalGroupName());
 
     current_game_id = game_id;
 }
@@ -45,7 +47,7 @@ function handle_signin_message(params)
 
 function onopen()
 {
-    websocket.send("SIGNIN;" + groupname)
+    websocket.send("SIGNIN;" + getLocalGroupName())
 }
 
 function onMessage(evt)
@@ -65,6 +67,6 @@ function onMessage(evt)
 
 function send_win_message(message)
 {
-    websocket.send("WIN;" + groupname + ";" + current_game_id + ";" + message);
+    websocket.send("WIN;" + getLocalGroupName() + ";" + current_game_id + ";" + message);
     current_game_id++;
 }
