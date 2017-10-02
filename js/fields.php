@@ -15,7 +15,7 @@ else
    printf('var JSONBingo = {"squares": [');
 
 foreach ($fields as $field) {
-	printf('%s{"square": "%s"}', $notfirst ? ",\n" : "", htmlentities($field['text']));
+	printf('%s{"square": "%s"}', $notfirst ? ",\n" : "", $_GET['pure_json'] == '1' ? $field['text'] : htmlentities($field['text']));
 	$notfirst = TRUE;
 }
 ?>
