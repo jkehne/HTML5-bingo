@@ -8,14 +8,16 @@ do_etag($db);
 header("Content-Type: application/javascript; charset=UTF-8");
 
 $fields = $db->list_fields(1);
-$notfirst = FALSE
-?>
-var JSONBingo = {"squares": [
-<?php
-	foreach ($fields as $field) {
-		printf('%s{"square": "%s"}', $notfirst ? ",\n" : "", htmlentities($field['text']));
-		$notfirst = TRUE;
-	}
+$notfirst = FALSE;
+if ($_GET['pure_json'] == '1')
+   printf('{"squares": [');
+else
+   printf('var JSONBingo = {"squares": [');
+
+foreach ($fields as $field) {
+	printf('%s{"square": "%s"}', $notfirst ? ",\n" : "", htmlentities($field['text']));
+	$notfirst = TRUE;
+}
 ?>
 ]
 };
