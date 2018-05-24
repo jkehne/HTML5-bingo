@@ -15,10 +15,20 @@ class database {
 	if (!$this->db_handle->set_charset("utf8")) {
 	    printf("Error loading character set utf8: %s\n", $this->db_handle->error);
 	}
+
+	$this->set_group_concat_len();
     }
 
     function __destruct() {
         $this->db_handle->close();
+    }
+
+    private function set_group_concat_len() {
+	$sql = "SET group_concat_max_len = @@max_allowed_packet";
+
+	if (!$res = $this->db_handle->query($sql)) {
+            echo "Error querying available fields";
+        }
     }
 
     public function insert_field($text, $active) {
