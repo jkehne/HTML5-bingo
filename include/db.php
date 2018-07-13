@@ -73,7 +73,7 @@ class database {
     public function list_fields($active) {
         $retval = array();
 
-        if (!$res = $this->db_handle->query("SELECT id, text FROM fields WHERE active = " . $active)) {
+        if (!$res = $this->db_handle->query("SELECT id, text FROM fields WHERE active = " . $active . " ORDER BY id DESC")) {
             echo "Error querying available fields";
             return NULL;
         }
